@@ -4,13 +4,13 @@
     <label>
       <input class="search__input"
              type="text"
-             :value="value" @input="typing($event.target.value)"
+             :value="searchText"
+             @input="searchText = $event.target.value"
       >
-      {{ value }}
     </label>
-    <p>{{ `How many names: ${names.length}, matches: ${value ? matches.length : 0}` }}</p>
+    <p>How many names: {{names.length}}, matches: {{getFilteredNames.length}}</p>
     <ul class="search__list">
-      <li v-for="person in matches"
+      <li v-for="person in getFilteredNames"
           :key="person">
         <span>{{ person }}</span>
       </li>
@@ -30,14 +30,12 @@ export default {
         'Mariya',
         'Elena'
       ],
-      matches: [],
-      value: ''
+      searchText: ''
     }
   },
-  methods: {
-    typing (value) {
-      this.value = value
-      this.matches = this.names.filter(item => item.toLowerCase().includes(value.toLowerCase()))
+  computed: {
+    getFilteredNames () {
+      return this.names.filter(item => item.toLowerCase().includes(this.searchText.toLowerCase()))
     }
   }
 }
@@ -48,7 +46,7 @@ export default {
   border-top: 3px solid aquamarine;
 }
 .search__list {
-  min-height: 200px;
+  min-height: 150px;
 }
 
 </style>
