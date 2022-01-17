@@ -1,10 +1,11 @@
 
 <template>
   <div class="container">
-    <Hello></Hello>
-    <Card></Card>
-    <Search></Search>
+    <ProductsList></ProductsList>
     <CatsControls></CatsControls>
+    <Search></Search>
+    <Card></Card>
+    <Hello></Hello>
   </div>
 </template>
 
@@ -13,6 +14,7 @@ import Hello from './components/Hello'
 import Card from './components/Card'
 import Search from './components/Search'
 import CatsControls from './components/CatsControls'
+import ProductsList from './components/ProductsList'
 
 export default {
   name: 'App',
@@ -20,23 +22,12 @@ export default {
     Hello,
     Card,
     Search,
-    CatsControls
+    CatsControls,
+    ProductsList
   }
 }
 </script>
 
 <style>
-body {
-  font-family: Arial, sans-serif;
-  font-size: 20px;
-}
 
-.container {
-  margin: 0 auto;
-  max-width: 1080px;
-}
-
-ul {
-  list-style: none;
-}
 </style>
