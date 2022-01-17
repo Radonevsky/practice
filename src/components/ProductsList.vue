@@ -3,7 +3,7 @@
     <h2 class="title">Desk chairs</h2>
     <label>
       Search
-      <my-input v-model="searchText" />
+      <my-input @search="search($event)" />
 <!--      <input type="text" class="products__search"
               :value="searchText" @input="searchText = $event.target.value">-->
     </label>
@@ -62,6 +62,9 @@ export default {
   methods: {
     addToCart (idx) {
       console.log(idx)
+    },
+    search (text) {
+      console.log('searching...: ' + text)
     }
   }
 }

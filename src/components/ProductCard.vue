@@ -44,7 +44,8 @@ export default {
 .product-card {
   display: flex;
   flex-direction: column;
-  max-width: 200px;
+  width: 160px;
+  height: 270px;
   padding: 5px;
 
   text-align: center;
