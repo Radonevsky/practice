@@ -1,6 +1,7 @@
 
 <template>
   <div class="container">
+    <Form></Form>
     <ProductsList></ProductsList>
     <CatsControls></CatsControls>
     <Search></Search>
@@ -15,6 +16,7 @@ import Card from './components/Card'
 import Search from './components/Search'
 import CatsControls from './components/CatsControls'
 import ProductsList from './components/ProductsList'
+import Form from './components/Form'
 
 export default {
   name: 'App',
@@ -23,7 +25,8 @@ export default {
     Card,
     Search,
     CatsControls,
-    ProductsList
+    ProductsList,
+    Form
   }
 }
 </script>
