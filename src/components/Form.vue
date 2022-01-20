@@ -1,6 +1,6 @@
 <template>
   <div class="form" >
-    <form @submit.prevent="checkForm">
+    <form @submit.prevent="checkForm" v-if="!registrationPassed">
       <div class="form__item">
         <label>
           <p>E-mail:</p>
@@ -86,6 +86,7 @@
       </div>
       <button class="form__button" type="submit">Save!</button>
     </form>
+    <h2 v-else>{{ `${form.login}, registration passed` }}</h2>
   </div>
 </template>
 
@@ -144,7 +145,8 @@ export default {
           name: 'Anime',
           value: 'anime'
         }
-      ]
+      ],
+      registrationPassed: false
     }
   },
   validations () {
@@ -163,10 +165,8 @@ export default {
   methods: {
     async checkForm () {
       const isFormCorrect = await this.v$.$validate()
-      if (!isFormCorrect) {
-        console.log('Form invalid')
-      } else {
-        console.log('Yeah')
+      if (isFormCorrect) {
+        this.registrationPassed = true
       }
     }
   }

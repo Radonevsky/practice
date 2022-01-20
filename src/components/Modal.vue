@@ -25,6 +25,10 @@ export default {
       default: 'Modal title'
     }
   },
+  mounted () {
+    const modalBody = this.$refs.modalBody
+    modalBody.scrollTop = modalBody.scrollHeight - modalBody.clientHeight
+  },
   data () {
     return {
       isRulesReaded: false
