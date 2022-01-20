@@ -164,9 +164,9 @@ export default {
     async checkForm () {
       const isFormCorrect = await this.v$.$validate()
       if (!isFormCorrect) {
-        console.log(this.v$.form.email.email.$message)
+        console.log('Form invalid')
       } else {
-        console.log('yeah')
+        console.log('Yeah')
       }
     }
   }

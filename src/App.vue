@@ -1,6 +1,7 @@
 
 <template>
   <div class="container">
+    <ModalPage></ModalPage>
     <Form></Form>
     <ProductsList></ProductsList>
     <CatsControls></CatsControls>
@@ -17,6 +18,7 @@ import Search from './components/Search'
 import CatsControls from './components/CatsControls'
 import ProductsList from './components/ProductsList'
 import Form from './components/Form'
+import ModalPage from './components/ModalPage'
 
 export default {
   name: 'App',
@@ -26,7 +28,8 @@ export default {
     Search,
     CatsControls,
     ProductsList,
-    Form
+    Form,
+    ModalPage
   }
 }
 </script>
