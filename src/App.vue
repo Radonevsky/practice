@@ -1,36 +1,19 @@
 
 <template>
   <div class="container">
-    <ModalPage></ModalPage>
-    <Form></Form>
-    <ProductsList></ProductsList>
-    <CatsControls></CatsControls>
-    <Search></Search>
-    <Card></Card>
-    <Hello></Hello>
+    <header>
+      <router-link to="/">Home</router-link> |
+      <router-link to="/practice">Practice</router-link> |
+      <router-link to="/bikes">Bikes</router-link>
+    </header>
+    <router-view />
   </div>
 </template>
 
 <script>
-import Hello from './components/Hello'
-import Card from './components/Card'
-import Search from './components/Search'
-import CatsControls from './components/CatsControls'
-import ProductsList from './components/ProductsList'
-import Form from './components/Form'
-import ModalPage from './components/ModalPage'
 
 export default {
-  name: 'App',
-  components: {
-    Hello,
-    Card,
-    Search,
-    CatsControls,
-    ProductsList,
-    Form,
-    ModalPage
-  }
+  name: 'App'
 }
 </script>
 

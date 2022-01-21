@@ -4,7 +4,7 @@
             @click="closeModal">Close</button>
     <h3 class="modal__title">{{ title }}</h3>
     <div class="modal__body"
-         ref="modalBody" @scroll="scrollBody">
+         @scroll="onScroll">
       <slot name="body"></slot>
     </div>
     <slot name="footer">
@@ -17,6 +17,7 @@
 </template>
 
 <script>
+
 export default {
   name: 'Modal',
   props: {
@@ -25,10 +26,13 @@ export default {
       default: 'Modal title'
     }
   },
-  mounted () {
+  created () {
+    this.$log()
+  },
+  /*  mounted () {
     const modalBody = this.$refs.modalBody
     modalBody.scrollTop = modalBody.scrollHeight - modalBody.clientHeight
-  },
+  }, */
   data () {
     return {
       isRulesReaded: false
@@ -38,11 +42,8 @@ export default {
     closeModal () {
       this.$emit('close')
     },
-    scrollBody () {
-      const modalBody = this.$refs.modalBody
-      if (modalBody.scrollTop >= modalBody.scrollHeight - modalBody.clientHeight) {
-        this.isRulesReaded = true
-      }
+    scrollEnd () {
+      this.isRulesReaded = true
     }
   }
 }
