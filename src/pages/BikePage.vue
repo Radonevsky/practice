@@ -22,17 +22,18 @@
         <p class="section__title">Режиссеры:</p>
         <p class="section__description">{{ film.directors.join(', ') }}</p>
       </div>
-
+      <reactions></reactions>
     </div>
   </div>
-
 </template>
 
 <script>
 import films from '../mocks/bikes'
+import reactions from '../components/reactions'
 
 export default {
   name: 'BikePage',
+  components: { reactions },
   data () {
     return {
       film: null
