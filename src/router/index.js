@@ -3,6 +3,8 @@ import Home from '../pages/Home'
 import AllBikesPage from '../pages/AllBikesPage'
 import Practice from '../pages/Practice'
 import BikePage from '../pages/BikePage'
+import NotFound from '../pages/404'
+import FilmsLayout from '../pages/FilmsLayout'
 
 const routes = [
   {
@@ -11,19 +13,43 @@ const routes = [
     component: Home
   },
   {
-    path: '/bikes',
-    name: 'AllBikesPage',
-    component: AllBikesPage
+    path: '/films',
+    name: 'filmsLayout',
+    component: FilmsLayout,
+    children: [
+      {
+        path: '',
+        name: 'AllBikesPage',
+        component: AllBikesPage
+      },
+      {
+        path: ':id',
+        name: 'BikePage',
+        component: BikePage,
+        beforeEnter: (to, from, next) => {
+          if (localStorage.getItem('auth')) {
+            next()
+          } else {
+            next({ name: AllBikesPage })
+          }
+        }
+      },
+      {
+        path: '/:pathMatch(.*/*)',
+        redirect: { name: 'AllBikesPage' }
+      }
+    ]
   },
-  {
-    path: '/bikes/:id',
-    name: 'BikePage',
-    component: BikePage
-  },
+
   {
     path: '/practice',
     name: 'Practice',
     component: Practice
+  },
+  {
+    path: '/:catchAll(.*)',
+    name: 'notFound',
+    component: NotFound
   }
 ]
 

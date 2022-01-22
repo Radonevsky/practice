@@ -1,19 +1,18 @@
 
 <template>
   <div class="container">
-    <header>
-      <router-link to="/">Home</router-link> |
-      <router-link to="/practice">Practice</router-link> |
-      <router-link to="/bikes">Bikes</router-link>
-    </header>
+    <main-header></main-header>
     <router-view />
   </div>
 </template>
 
 <script>
 
+import MainHeader from './components/MainHeader'
+
 export default {
-  name: 'App'
+  name: 'App',
+  components: { MainHeader }
 }
 </script>
 
