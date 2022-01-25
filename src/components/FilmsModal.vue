@@ -25,16 +25,14 @@
           <div class="films-modal__form-footer">
             <div class="films-modal__mode">
               <p>{{ isAuthReg ? 'Already have an account?' : 'Don\'t have an account?' }}</p>
-              <button class="films-modal__toggle"
-                @click="isAuthReg = !isAuthReg">
+              <a href="#" class="films-modal__toggle"
+                @click.prevent="isAuthReg = !isAuthReg">
                 {{ isAuthReg ? 'Log In' : 'Registration' }}
-              </button>
+              </a>
             </div>
             <button class="films-modal__button"
                     @click="closeModal">Close</button>
-            <button class="films-modal__button"
-                    @click="authRequest"
-                    >OK</button>
+            <button class="films-modal__button" type="submit">OK</button>
           </div>
         </form>
       </div>
@@ -60,21 +58,66 @@ export default {
     closeModal () {
       this.$emit('close')
     },
-    async authRequest () {
-      if (this.isAuthReg) {
-        const res = await fetch('https://api.realworld.io/api/users', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            username: this.username,
-            email: this.email,
-            password: this.password
-          })
+    changeUserState () {
+      if (this.auth) {
+        localStorage.removeItem('auth')
+        this.$router.push({ name: 'main' })
+      } else {
+        localStorage.setItem('auth', true)
+        this.auth = true
+      }
+    },
+    async signUp () {
+      const res = await fetch('https://api.realworld.io/api/users', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          user: {
+            username: this.form.username,
+            email: this.form.email,
+            password: this.form.password
+          }
         })
-        console.log(res.status)
-        console.log(res)
+      })
+      const data = await res.json()
+      if (res.status === 200 || res.status === 201) {
+        this.$store.dispatch('auth/setUser', data)
+        localStorage.setItem('user', JSON.stringify(data))
+        this.$emit('close')
+      } else {
+        this.errors = data
+        console.log(data)
+      }
+    },
+    /* async logIn () {
+      const res = await fetch('https://api.realworld.io/api/users/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          user: {
+            email: this.form.email,
+            password: this.form.password
+          }
+        })
+      })
+      const data = await res.json()
+      if (res.status === 200 || res.status === 201) {
+        this.$store.dispatch('auth/setUser', data)
+        this.$emit('close')
+      } else {
+        this.errors = data
+        console.log(data)
+      }
+    }, */
+    formSubmit () {
+      if (this.isAuthReg) {
+        this.signUp()
+      } else {
+        this.logIn()
       }
     }
   }

@@ -6,8 +6,12 @@
       <div class="films-footer__container">
         <h3>Films is here!</h3>
         <button class="films-footer__button" @click="isModalEnabled = true">
-          {{ auth ? 'Logout' : 'Login' }}
+          {{ getUser ? 'Logout' : 'Login' }}
         </button>
+        <button class="films-footer__button" @click="getU = true">
+          getUser
+        </button>
+        <span>{{ user }}</span>
       </div>
     </div>
   </div>
@@ -16,23 +20,35 @@
 <script>
 
 import FilmsModal from './FilmsModal'
+import { mapActions, mapGetters } from 'vuex'
 
 export default {
   name: 'FilmsFooter',
   components: { FilmsModal },
   data () {
     return {
-      auth: false,
-      isModalEnabled: false
+      isModalEnabled: false,
+      user: ''
     }
   },
-  async created () {
-    const res = await fetch('https://api.realworld.io/api/user')
-    if (res.status === 201) {
-      this.auth = true
-    }
+  computed: {
+    ...mapGetters({
+      getUser: 'auth/getUser'
+    })
+  },
+  created () {
+    this.setUser(JSON.parse(localStorage.getItem('user')))
   },
   methods: {
+    ...mapActions({
+      setUser: 'auth/setUser'
+    }),
+    async getU () {
+      const res = await fetch('https://api.realworld.io/api/user')
+      if (res.status === 201) {
+        this.user = res
+      }
+    }
   }
 }
 </script>
