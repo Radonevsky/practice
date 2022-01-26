@@ -42,6 +42,8 @@
 
 <script>
 
+import auth from '../api/index'
+
 export default {
   name: 'FilmsModal',
   data () {
@@ -68,7 +70,21 @@ export default {
       }
     },
     async signUp () {
-      const res = await fetch('https://api.realworld.io/api/users', {
+      try {
+        const data = (await auth.auth.signUp({
+          user: {
+            username: this.form.username,
+            email: this.form.email,
+            password: this.form.password
+          }
+        })).data
+        this.$store.dispatch('auth/setUser', data)
+        localStorage.setItem('user', JSON.stringify(data))
+        this.$emit('close')
+      } catch (error) {
+        console.log(error.response.data)
+      }
+    /*      const res = await fetch('https://api.realworld.io/api/users', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -89,7 +105,7 @@ export default {
       } else {
         this.errors = data
         console.log(data)
-      }
+      } */
     },
     /* async logIn () {
       const res = await fetch('https://api.realworld.io/api/users/login', {
