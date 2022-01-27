@@ -133,7 +133,7 @@ export default {
       if (this.isAuthReg) {
         this.signUp()
       } else {
-        this.logIn()
+        // this.logIn()
       }
     }
   }

@@ -8,9 +8,6 @@
         <button class="films-footer__button" @click="isModalEnabled = true">
           {{ getUser ? 'Logout' : 'Login' }}
         </button>
-        <button class="films-footer__button" @click="getU = true">
-          getUser
-        </button>
         <span>{{ user }}</span>
       </div>
     </div>
@@ -42,13 +39,7 @@ export default {
   methods: {
     ...mapActions({
       setUser: 'auth/setUser'
-    }),
-    async getU () {
-      const res = await fetch('https://api.realworld.io/api/user')
-      if (res.status === 201) {
-        this.user = res
-      }
-    }
+    })
   }
 }
 </script>
